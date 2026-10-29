@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 1.5rem;
+    --font-sans: -apple-system, "SF Pro Display", "Inter", system-ui, sans-serif;
+    --font-script: "Dancing Script", cursive;
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    --background: 0 0% 4%;
+    --foreground: 240 5% 96%;
+    --card: 0 0% 9%;
+    --card-foreground: 240 5% 96%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 240 5% 96%;
+    --primary: 240 5% 96%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 13%;
+    --secondary-foreground: 240 5% 96%;
+    --muted: 0 0% 11.5%;
+    --muted-foreground: 240 3% 62%;
+    --accent: 0 0% 13%;
+    --accent-foreground: 240 5% 96%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 17%;
+    --input: 0 0% 20%;
+    --ring: 213 90% 60%;
+    --chart-1: 213 90% 60%;
+    --chart-2: 280 70% 60%;
+    --chart-3: 340 80% 62%;
+    --chart-4: 38 92% 55%;
+    --chart-5: 160 70% 45%;
+    --glass: oklch(0.2 0 0 / 55%);
+    --hairline: oklch(1 0 0 / 9%);
+    --accent-a: oklch(0.68 0.19 250);
+    --accent-b: oklch(0.62 0.22 300);
+    --accent-c: oklch(0.72 0.2 0);
+    --gradient-accent: linear-gradient(110deg, var(--accent-a), var(--accent-b), var(--accent-c));
+    --shadow-soft: 0 1px 0 oklch(1 0 0 / 6%) inset, 0 30px 60px -20px oklch(0 0 0 / 60%), 0 10px 20px -10px oklch(0 0 0 / 40%);
+  }
+
+  .theme-surprise {
+    --background: 40 60% 93%;
+    --foreground: 20 30% 14%;
+    --card: 40 60% 98%;
+    --muted-foreground: 20 15% 38%;
+    --border: 40 15% 82%;
+    --secondary: 40 35% 86%;
+    --primary: 20 30% 14%;
+    --primary-foreground: 40 60% 98%;
+    --hairline: oklch(0 0 0 / 10%);
+    --glass: oklch(1 0 0 / 60%);
+    --accent-a: oklch(0.7 0.2 40);
+    --accent-b: oklch(0.75 0.18 90);
+    --accent-c: oklch(0.65 0.2 150);
+  }
+
+  * { border-color: hsl(var(--border)); }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    font-size: 17px;
+    line-height: 1.45;
+    overflow-x: hidden;
+    transition: background-color 0.8s var(--ease-spring), color 0.8s var(--ease-spring);
+  }
+  :focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 3px; border-radius: 8px; }
+  ::selection { background: var(--accent-b); color: hsl(var(--primary)); }
+}
+
+@media (pointer: fine) {
+  body.has-cursor, body.has-cursor * { cursor: none !important; }
+}
+
+@keyframes wobble {
+  0%,100% { transform: rotate(0) scale(1.08); }
+  25% { transform: rotate(-8deg) scale(1.12); }
+  75% { transform: rotate(8deg) scale(1.12); }
+}
+@keyframes cue { 0% { transform: translateY(0); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(14px); opacity: 0; } }
+@keyframes floaty { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
+@keyframes shimmer { to { background-position: -200% 0; } }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+
+@layer utilities {
+  .headline { font-size: clamp(56px, 11vw, 160px); letter-spacing: -0.045em; line-height: 0.92; font-weight: 700; }
+  .title { font-size: clamp(40px, 6vw, 88px); letter-spacing: -0.04em; line-height: 1; font-weight: 650; }
+  .eyebrow { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: hsl(var(--muted-foreground)); font-weight: 600; }
+  .text-gradient { background: var(--gradient-accent); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .bg-gradient-accent { background: var(--gradient-accent); }
+  .glass { background: var(--glass); backdrop-filter: blur(20px) saturate(180%); border: 1px solid var(--hairline); box-shadow: var(--shadow-soft); }
+  .animate-wobble { animation: wobble 0.5s var(--ease-spring); }
+  .animate-cue { animation: cue 1.8s var(--ease-spring) infinite; }
+  .animate-floaty { animation: floaty 6s ease-in-out infinite; }
+  .shimmer-text {
+    background: linear-gradient(90deg, hsl(var(--muted-foreground)) 0%, hsl(var(--foreground)) 50%, hsl(var(--muted-foreground)) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shimmer 2.5s linear infinite;
+  }
+  .aurora {
+    background: conic-gradient(from 0deg, var(--accent-a), var(--accent-b), var(--accent-c), var(--accent-a));
+    animation: spin-slow 14s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .island-motion { transition-duration: 1000ms !important; animation-duration: 500ms !important; }
+}
